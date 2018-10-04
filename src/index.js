@@ -6,15 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
   .then(quoteData => {
     document.getElementById("quote-list").innerHTML = quoteData.map(quote => {
       let newQuote = new Quote(quote);
-      return `<li class='quote-card' data-id="${newQuote.id}">
-      <blockquote class="blockquote">
-        <p class="mb-0">${newQuote.quote}</p>
-        <footer class="blockquote-footer">${newQuote.author}</footer>
-        <br>
-        <button class='btn-success'>Likes: <span>${newQuote.likes}</span></button>
-        <button class='btn-danger'>Delete</button>
-      </blockquote>
-    </li>`;
+      return newQuote.render();
     }).join("")
   })
 
@@ -40,15 +32,8 @@ document.addEventListener('DOMContentLoaded', function() {
       })
     }).then(r => r.json())
     .then(quoteData => {
-      document.getElementById("quote-list").innerHTML += `<li class='quote-card' data-id="${quoteData.id}">
-      <blockquote class="blockquote">
-        <p class="mb-0">${quoteData.quote}</p>
-        <footer class="blockquote-footer">${quoteData.author}</footer>
-        <br>
-        <button class='btn-success'>Likes: <span>${quoteData.likes}</span></button>
-        <button class='btn-danger'>Delete</button>
-      </blockquote>
-    </li>`;
+      let newQuote = new Quote(quoteData)
+      document.getElementById("quote-list").innerHTML += newQuote.render();
     })
   })
 
@@ -85,5 +70,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   })
 
-
+//step 5, filter;
+  const filterBtn = document.getElementById("btn-filter");
+  let filterStatus = false;
+  filterBtn.addEventListener("click", (event) => {
+    if (filterStatus === false){
+      let sortedQuote = allQuotes.slice().sort(function(quote1, quote2){
+        return ('' + quote1.author).localeCompare(quote2.author);
+      })
+      document.getElementById("quote-list").innerHTML = sortedQuote.map(quote => quote.render()).join("");
+      filterStatus = !filterStatus;
+    } else {
+      document.getElementById("quote-list").innerHTML = allQuotes.map(quote => quote.render()).join("");
+      filterStatus = !filterStatus;
+    }
+  })
 })
