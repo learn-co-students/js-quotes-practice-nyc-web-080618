@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     document.addEventListener('click', (event) => {
+
       if(event.target.className === "btn-success"){
         const targetQuoteId = event.target.dataset.like
         const targetQuote = Quote.findQuote(targetQuoteId)
@@ -66,6 +67,55 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(res => res.json())
         document.getElementById(`list-${targetQuoteId}`).remove()
       }
+
+      if(event.target.className === "btn-info"){
+        const targetQuoteId = event.target.dataset.id
+        const targetQuote = Quote.findQuote(targetQuoteId)
+        const quoteInput = document.getElementById('quoteInput')
+        const authorInput = document.getElementById('authorInput')
+        const submitButton = document.getElementById('submitForm')
+        quoteInput.value = targetQuote.quote
+        authorInput.value = targetQuote.author
+        submitButton.dataset.id = targetQuoteId
+      }
+
+      if(event.target.className === "btn-warning"){
+        event.preventDefault()
+        const targetQuoteId = event.target.dataset.id
+        const targetQuote = Quote.findQuote(targetQuoteId)
+        const quoteInput = document.getElementById('quoteInput').value
+        const authorInput = document.getElementById('authorInput').value
+        fetch(`http://localhost:3000/quotes/${targetQuoteId}`, {
+          method: 'PATCH',
+          headers: {
+                      "Content-Type": "application/json",
+                      "Accept": "application/json"
+                    },
+          body: JSON.stringify({
+            quote: quoteInput,
+            author: authorInput
+          })
+        }).then(res => res.json())
+        .then(data => {
+          targetQuote.updateQuote(data)
+          allList.innerHTML = allQuote.map(quote => quote.render()).join("")
+        })
+      }
+
+      if(event.target.id === "sortAuthor"){
+        let copyArr = [...allQuote]
+        let sortedArr = copyArr.sort((a, b) => a.author.localeCompare(b.author))
+        if(event.target.innerText === "Sort Quotes by Author: OFF"){
+          event.target.innerText = "Sort Quotes by Author: ON"
+          allList.innerHTML = sortedArr.map(quote => {
+            return quote.render()
+          }).join("")
+        } else {
+          event.target.innerText = "Sort Quotes by Author: OFF"
+          allList.innerHTML = allQuote.map(quote => quote.render()).join("")
+        }
+      }
+
     })
 
 

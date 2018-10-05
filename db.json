@@ -1,16 +1,34 @@
 {
   "quotes": [
     {
-      "quote": "sadsd",
-      "author": "sadasdasd",
-      "likes": "4",
+      "quote": "hahaha",
+      "author": "wwwwww",
+      "likes": "8",
       "id": 1
     },
     {
       "quote": "sadsad",
-      "author": "asdasd",
+      "author": "yan",
       "likes": "4",
       "id": 4
+    },
+    {
+      "quote": "ajjiuiiiii",
+      "author": "jsjnjjsjsjs",
+      "likes": 0,
+      "id": 5
+    },
+    {
+      "quote": "asad",
+      "author": "fsafsadad",
+      "likes": 0,
+      "id": 7
+    },
+    {
+      "quote": "evfevfe",
+      "author": "dvfd v",
+      "likes": 0,
+      "id": 8
     }
   ]
 }
