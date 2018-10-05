@@ -11,6 +11,13 @@
 </head>
 <body class='container center'>
   <h1>My favorite quotes:</h1>
+    <form id="edit-form">
+      <input id="quoteInput" type="text" name="quote" value="">
+      <input id="authorInput" type="text" name="author" value="">
+      <button class="btn-warning" id="submitForm" type="submit" name="">Submit</button>
+    </form>
+    <br>
+    <button id="sortAuthor" type="button" name="button">Sort Quotes by Author: OFF</button>
   <div>
     <ul id="quote-list">
     </ul>
@@ -29,6 +36,7 @@
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
+  <script src="src/quote.js"></script>
   <script src="src/index.js"></script>
 </body>
 </html>
